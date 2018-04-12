@@ -69,7 +69,8 @@ public class Kind {
 		return "Kind: " + kindId + " " + alterKindes + " " + punktenStart;
 		
 	}
-	
+
+	/*
 	public List<KindAngenehmeAktivitaet> getAktivitaetenListe() {
 		
 		List<KindAngenehmeAktivitaet> returnValue = new ArrayList<KindAngenehmeAktivitaet>();
@@ -80,7 +81,7 @@ public class Kind {
 		
 		return returnValue;
 		
-	}
+	} */
 	
 }
 

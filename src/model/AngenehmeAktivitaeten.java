@@ -1,69 +1,27 @@
 package model;
 
-public class AngenehmeAktivitaeten {
+public class AngenehmeAktivitaeten extends Aktivitaeten {
 
 	// Attributes
-	
-	private int angenehmeId;
-	private String nameAngenehm;
-	private int plusPunkteZahl;
-	
-	// Constructors
-	
-	public AngenehmeAktivitaeten() {
-	}
-	
-	public AngenehmeAktivitaeten(int angenehmeId) {
-		
-		this.angenehmeId = angenehmeId;
-		
-	}
-	
-	// Getters & Setters
-	
-	public int getAngenehmeId() {
-		
-		return this.angenehmeId;
-		
+
+	// Constructors - hier wird der super()-Konstruktor der Aktivitaeten-klasse
+	// aufgerufen
+
+	public AngenehmeAktivitaeten(int id, String name, int punkte) {
+
+		super();
+
+		this.aktivitaetId = id;
+		this.nameAktivitaet = name;
+		this.punktenZahl = punkte;
 	}
 
-	public void setAngenehmeId(int angenehmeId) {
-		
-		this.angenehmeId = angenehmeId;
-		
-	}
-
-	public String getName() {
-		
-		return this.nameAngenehm;
-		
-	}
-
-	public void setName(String nameAngenehm) {
-		
-		this.nameAngenehm = nameAngenehm;
-		
-	}
-
-	public int getPlusPunkteZahl() {
-		
-		return this.plusPunkteZahl;
-		
-	}
-
-	public void setPlusPunkteZahl(int plusPunkteZahl) {
-		
-		this.plusPunkteZahl = plusPunkteZahl;
-		
-	}
-	
-	// Methods
-	
+	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
 	@Override
 	public String toString() {
-		
-		return "Kind: " + angenehmeId + " " + nameAngenehm + " " + plusPunkteZahl;
-		
+
+		return "Kind: " + aktivitaetId + " " + nameAktivitaet + " " + punktenZahl;
+
 	}
-	
-}
+
+}// Ende der Klasse AngenehmeAktivitaeten

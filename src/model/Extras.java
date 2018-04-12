@@ -1,82 +1,41 @@
 package model;
 
-public class Extras {
+public class Extras extends Aktivitaeten {
 
 	// Attributes
-	
-	private int extrasId;
-	private String nameExtra;
-	private int habenFuerPunkte;
+
 	private int danachAbziehenPunkte;
-	
-	// Constructors
-	
-	public Extras() {
-	}
-	
-	public Extras(int extrsaId) {
-		
-		this.extrasId = extrasId;
-		
-	}
-	
-	// Getters & Setters
-	
-	public int getExtraId() {
-		
-		return this.extrasId;
-		
+
+	// Constructors definieren
+	// Hier wird der super()-Konstruktor der Aktivitaeten-klasse aufgerufen
+
+	public Extras(int id, String name, int habenFürPunkte) {
+		super();
+		this.aktivitaetId = id;
+		this.nameAktivitaet = name;
+		this.punktenZahl = habenFürPunkte;
 	}
 
-	public void setExtraId(int extraId) {
-		
-		this.extrasId = extraId;
-		
-	}
-
-	public String getNameExtra() {
-		
-		return this.nameExtra;
-		
-	}
-
-	public void setNameExtra(String nameExtra) {
-		
-		this.nameExtra = nameExtra;
-		
-	}
-
-	public int getHabenFuerPunkte() {
-		
-		return this.habenFuerPunkte;
-		
-	}
-
-	public void setHabenFuerPunkte(int habenFuerPunkte) {
-		
-		this.habenFuerPunkte = habenFuerPunkte;
-		
-	}
-
+	// Getters und Setters fürs das Attribut "danachAbziehenPunkte" erzeugen.
 	public int getDanachAbziehenPunkte() {
-		
+
 		return this.danachAbziehenPunkte;
-		
+
 	}
 
 	public void setDanachAbziehenPunkte(int danachAbziehenPunkte) {
-		
+
 		this.danachAbziehenPunkte = danachAbziehenPunkte;
-		
+
 	}
-	
-	// Methods
-	
+
+	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
+
 	@Override
 	public String toString() {
-		
-		return "Kind: " + extrasId + " " + nameExtra + " " + habenFuerPunkte + " " + danachAbziehenPunkte;
-		
+
+		return "Kind: " + aktivitaetId + " " + nameAktivitaet + " " + punktenZahl + " " + danachAbziehenPunkte;
+
 	}
-	
-}
+
+}// Ende class Extras
