@@ -3,10 +3,14 @@ package application;
 import org.apache.logging.log4j.*;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import model.AngenehmeAktivitaeten;
+import model.Kinder;
 import helper.DbHelper;
 
 public class Main extends Application {
@@ -59,7 +63,7 @@ public class Main extends Application {
 			DbHelper.connection = connection;
 			
 			// JavaFX application will be started
-			
+		
 			launch(args);
 			
 		} catch (SQLException sqle) {

@@ -1,22 +1,34 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Kinder {
+import helper.DbHelper;
 
+public class Kinder {
+	
 	// Attributes
 	
 	private int kindId;
 	private int alterKindes;
 	private int punktenStart;
 	
+	private ArrayList<AngenehmeAktivitaeten> angenehmeAktList = new ArrayList<>();
+	
+	private ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList = new ArrayList<>();
+	
 	// Constructors
 	
 	public Kinder() {
 	}
 	
-	public Kinder(int kindId, int alterKindes) {
+	public Kinder(int kindId, int alterKindes ) {
 		
 		this.kindId = kindId;
 		this.alterKindes = alterKindes;
@@ -61,27 +73,32 @@ public class Kinder {
 		
 	}
 	
-	// Methods
+	public ArrayList<AngenehmeAktivitaeten> getAngenehmeAktList() {
+		return angenehmeAktList;
+	}
+
+	public void setAngenehmeAktList(ArrayList<AngenehmeAktivitaeten> angenehmeAktList) {
+		this.angenehmeAktList = angenehmeAktList;
+	}
+	
+	public ArrayList<UnangenehmeAktivitaeten> getUnangenehmeAktList() {
+		return unangenehmeAktList;
+	}
+
+	public void setUnangenehmeAktList(ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList) {
+		this.unangenehmeAktList = unangenehmeAktList;
+	}	
+	
+	
+	// Methode toString() vom Objekt überschreiben
 	
 	@Override
 	public String toString() {
 		
-		return "Kind: " + kindId + " " + alterKindes + " " + punktenStart;
+		return "Kind: " + kindId + " " + alterKindes + " " + punktenStart + " " 
+		+ angenehmeAktList + " " + unangenehmeAktList;
 		
 	}
 
-	/*
-	public List<KindAngenehmeAktivitaet> getAktivitaetenListe() {
-		
-		List<KindAngenehmeAktivitaet> returnValue = new ArrayList<KindAngenehmeAktivitaet>();
-		
-		KindAngenehmeAktivitaet ka = new KindAngenehmeAktivitaet(this.kindId);
-		
-		
-		
-		return returnValue;
-		
-	} */
-	
-}
+} 
 

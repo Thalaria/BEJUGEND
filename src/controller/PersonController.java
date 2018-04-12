@@ -30,6 +30,7 @@ public class PersonController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		DbHelper.getKindFromDB(ol1);
+
 		
 		// (1) Observable List and Table View anbinden
 		tabView1.setItems(ol1);
