@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import helper.DbHelper;
-import model.Person;
+import model.Kinder;
 
 public class PersonController implements Initializable {
 	
@@ -20,10 +20,7 @@ public class PersonController implements Initializable {
 	
 	private final static Logger logger = LogManager.getLogger(PersonController.class);
 	
-	Thread threadCreate = null;
-	Thread threadRemove = null;
-	
-	ObservableList<Person> ol1 = FXCollections.observableArrayList();
+	ObservableList<Kinder> ol1 = FXCollections.observableArrayList();
 	
 	// Public attributes
 	
@@ -32,27 +29,27 @@ public class PersonController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		DbHelper.getDataFromDB(ol1);
+		DbHelper.getKindFromDB(ol1);
 		
 		// (1) Observable List and Table View anbinden
-		tabView1.setItems(ol1);		
+		tabView1.setItems(ol1);
 				
 		// (2) Table Columns an Attribute (Properties) der Klasse Person anbinden
-		colVorname.setCellValueFactory(new PropertyValueFactory<Person, String>("vorname"));
-		colNachname.setCellValueFactory(new PropertyValueFactory<Person, String>("nachname"));
+		colKindId.setCellValueFactory(new PropertyValueFactory<Kinder, String>("KindID"));
+		colAlterKindes.setCellValueFactory(new PropertyValueFactory<Kinder, String>("AlterKindes"));
 		
 	}
 	
 	// FXML content
 	
     @FXML
-    private TableView<Person> tabView1;
+    private TableView<Kinder> tabView1;
 
     @FXML
-    private TableColumn<Person, String> colVorname;
+    private TableColumn<Kinder, String> colKindId;
 
     @FXML
-    private TableColumn<Person, String> colNachname;
+    private TableColumn<Kinder, String> colAlterKindes;
 
     @FXML
     private TextField eingabeVorname;
@@ -61,129 +58,9 @@ public class PersonController implements Initializable {
     private TextField eingabeNachname;
 
     @FXML
-    synchronized void butHinzufuegen(ActionEvent event) {
-    	
-    	Thread threadCreate = new Thread(new Runnable() {
-    		
-    		@Override
-    		public void run() {
-    			
-    			System.out.println("Ab jetzt sleep Modus");
-    			
-    	    	// Hier dauert eine Aktion sehr lange
-    	    	try {
-    	    		
-    				Thread.sleep(10);
-    				
-    				System.out.println("Raus aus sleep Modus");
-    				
-    			} catch (InterruptedException ie) {
-    				
-    				logger.error(ie);
-    				
-    			}
-    	    	    
-    	    	Person p = new Person(eingabeVorname.getText(), eingabeNachname.getText());
-    	    	
-    	    	try {
-    	    		
-    	    		DbHelper.personAddToDb(p);
-    	    		
-    	    		ol1.add(p);
-    	    		
-    	    	} catch (SQLException sqle) {
-    	    		
-    	    		logger.error(sqle);
-    	    		
-    	    	}
-    	    	
-    		}
-    		
-    	});
-    	
-    	threadCreate.start();
-    	
-    	try {
-    		
-    		if (threadRemove != null) {
-    			
-    			threadRemove.join();
-    			threadCreate.start();
-    			
-    		} else {
-    			
-    			threadCreate.start();
-    			
-    		}
-			
-		} catch (InterruptedException ie) {
-			
-			logger.error(ie);
-			
-		}
-    	
-    }
+    void butHinzufuegen(ActionEvent event) { }
     
     @FXML
-    synchronized void butRemove(ActionEvent event) {
-    	
-		Thread threadRemove = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-			
-    			System.out.println("Ab jetzt sleep Modus");
-    			
-    	    	// Hier dauert eine Aktion sehr lange
-    	    	try {
-    	    		
-    				Thread.sleep(10);
-    				
-    				System.out.println("Raus aus sleep Modus");
-    				
-    			} catch (InterruptedException ie) {
-    				
-    				logger.error(ie);
-    				
-    			}
-				
-		    	Person p = new Person(eingabeVorname.getText(), eingabeNachname.getText());
-		    	
-    	    	try {
-    	    		
-    	    		DbHelper.personRemoveFromDb(p);
-    	    		
-    	    		ol1.remove(p);
-    	    		
-    	    	} catch (SQLException sqle) {
-    	    		
-    	    		logger.error(sqle);
-    	    		
-    	    	}
-			
-			}
-		
-		});
-		
-		try {
-			
-			if (threadCreate != null) {
-				
-				threadCreate.join();
-				threadRemove.start();
-				
-			} else {
-				
-				threadRemove.start();
-				
-			}
-			
-		} catch (InterruptedException ie) {
-			
-			logger.error(ie);
-			
-		}
-    	
-    }
+    void butRemove(ActionEvent event) { }
 	
 }

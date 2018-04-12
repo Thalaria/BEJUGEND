@@ -3,7 +3,7 @@ package helper;
 import org.apache.logging.log4j.*;
 import java.sql.*;
 import javafx.collections.*;
-import model.Person;
+import model.Kinder;
 
 public class DbHelper {
 
@@ -17,46 +17,42 @@ public class DbHelper {
 	
 	// Methods
 	
-	public static void personAddToDb(Person p) throws SQLException {
+	public static void addKindToDb(Kinder k) throws SQLException {
 		
-		String prep = "INSERT INTO personen (vorname, nachname) VALUES (?, ?)";
+		String prep = "INSERT INTO kinder (KindID, AlterKindes) VALUES (?, ?)";
 		
-		String vorname = p.getVorname();
+		int kindId = k.getKindID();
 		
-		String nachname = p.getNachname();
+		int alterKindes = k.getAlterKindes();
 		
 		PreparedStatement prepStat = connection.prepareStatement(prep);
 		
-		prepStat.setString(1, vorname);
+		prepStat.setInt(1, kindId);
 		
-		prepStat.setString(2, nachname);
+		prepStat.setInt(2, alterKindes);
 		
 		prepStat.executeUpdate();
 		
 	}
 	
-	public static void personRemoveFromDb(Person p) throws SQLException {
+	public static void removeKindFromDb(Kinder k) throws SQLException {
 		
-		String prep = "DELETE FROM personen WHERE vorname = ? OR nachname = ?";
+		String prep = "DELETE FROM kinder WHERE KinderID = ?";
 		
-		String vorname = p.getVorname();
-		
-		String nachname = p.getNachname();
+		int kindId = k.getKindID();
 		
 		PreparedStatement prepStat = connection.prepareStatement(prep);
 		
-		prepStat.setString(1, vorname);
-		
-		prepStat.setString(2, nachname);
+		prepStat.setInt(1, kindId);
 		
 		prepStat.executeUpdate();
 		
 	}
 	
-	public static void getDataFromDB(ObservableList<Person> ol) {
+	public static void getKindFromDB(ObservableList<Kinder> ol) {
 	
 		
-		String sqlQuery = "SELECT * from personen";
+		String sqlQuery = "SELECT * from kinder";
 		
 		try {
 			
@@ -66,19 +62,19 @@ public class DbHelper {
 			
 			while(res.next()) {
 				
-				String nachname = res.getString("nachname");
+				int kindId = res.getInt("KindID");
 				
-				String vorname = res.getString("vorname");
+				int alterKindes = res.getInt("AlterKindes");
 				
-				Person pTemp = new Person(vorname, nachname);
+				Kinder kTemp = new Kinder(kindId, alterKindes);
 				
-				ol.add(pTemp);
+				ol.add(kTemp);
 				
 			}
 			
-		} catch (SQLException sqle) {
+		} catch (SQLException e) {
 			
-			logger.error(sqle);
+			logger.error(e);
 			
 		}
 		

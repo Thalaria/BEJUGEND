@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Kind {
+public class Kinder {
 
 	// Attributes
 	
@@ -13,10 +13,10 @@ public class Kind {
 	
 	// Constructors
 	
-	public Kind() {
+	public Kinder() {
 	}
 	
-	public Kind(int kindId, int alterKindes) {
+	public Kinder(int kindId, int alterKindes) {
 		
 		this.kindId = kindId;
 		this.alterKindes = alterKindes;

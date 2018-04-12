@@ -11,8 +11,8 @@
    <children>
       <TableView fx:id="tabView1" prefHeight="310.0" prefWidth="406.0">
         <columns>
-          <TableColumn fx:id="colVorname" prefWidth="154.0" text="Vorname" />
-          <TableColumn fx:id="colNachname" prefWidth="132.0" text="Nachname" />
+          <TableColumn fx:id="colKindId" prefWidth="154.0" text="KindID" />
+          <TableColumn fx:id="colAlterKindes" prefWidth="132.0" text="AlterKindes" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="319.0" prefHeight="17.0" prefWidth="98.0" text="Vorname" />

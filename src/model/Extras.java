@@ -9,14 +9,17 @@ public class Extras extends Aktivitaeten {
 	// Constructors definieren
 	// Hier wird der super()-Konstruktor der Aktivitaeten-klasse aufgerufen
 
-	public Extras(int id, String name, int habenFürPunkte) {
-		super();
+	public Extras() {
+	}
+	
+	public Extras(int id, String name, int habenFuerPunkte) {
+		//super();
 		this.aktivitaetId = id;
 		this.nameAktivitaet = name;
-		this.punktenZahl = habenFürPunkte;
+		this.punktenZahl = habenFuerPunkte;
 	}
 
-	// Getters und Setters fürs das Attribut "danachAbziehenPunkte" erzeugen.
+	// Getters und Setters fï¿½rs das Attribut "danachAbziehenPunkte" erzeugen.
 	public int getDanachAbziehenPunkte() {
 
 		return this.danachAbziehenPunkte;
@@ -29,7 +32,7 @@ public class Extras extends Aktivitaeten {
 
 	}
 
-	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
+	// Die toString()- Methode aus der Objekt-Klasse wird ï¿½berschrieben
 
 	@Override
 	public String toString() {

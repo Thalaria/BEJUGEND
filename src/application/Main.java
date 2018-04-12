@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
-import model.Kind;
 import helper.DbHelper;
 
 public class Main extends Application {
@@ -57,10 +56,7 @@ public class Main extends Application {
 		
 		try(Connection connection = DriverManager.getConnection(urlDB, dbUser, dbPassword)) {
 			
-			Kind k = new Kind(1, 10);
-			//k.getAktivitaetenListe(k.getKindID());
-			
-			//DbHelper.connection = connection;
+			DbHelper.connection = connection;
 			
 			// JavaFX application will be started
 			
