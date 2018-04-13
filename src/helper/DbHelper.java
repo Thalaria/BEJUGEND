@@ -56,8 +56,7 @@ public class DbHelper {
 	}
 	
 	public static void getKindFromDB(ObservableList<Kinder> ol) {
-	
-		
+			
 		String sqlQuery = "SELECT * from kinder";
 		
 		try {
@@ -71,12 +70,20 @@ public class DbHelper {
 				int kindId = res.getInt("KindID");
 				
 				int alterKindes = res.getInt("AlterKindes");
+				int punktStart = res.getInt("PunktenStart");
 				
-				Kinder kTemp = new Kinder(kindId, alterKindes);
+				Kinder kTemp = new Kinder(kindId, alterKindes, punktStart);
 				
 				kTemp.setAngenehmeAktList(holenAngenehmeAktivitaeten(kindId));
+				kTemp.setStandAngenehm(berechnePlusPunkte(kTemp));
+				
 				kTemp.setUnangenehmeAktList(holenUnangenehmeAktivitaeten(kindId));
+				kTemp.setStandUnangenehm(berechneMinusPunkte(kTemp));
+				
+				kTemp.setZwischenStand(berechneZwischenPunkte(kTemp));
+				
 				kTemp.setExtrasAktList(holenExtrasAktivitaeten(kindId));
+				kTemp.setStandExtras(berechneExtraPunkte(kTemp));
 				
 				ol.add(kTemp);
 				
@@ -111,7 +118,7 @@ public class DbHelper {
 		prepStat.setInt(1, kindId);
 
 		ResultSet result = prepStat.executeQuery();
-
+        int ergebnis;
 		while (result.next()) {
 			Date datum = result.getDate("EintragsDatum");
 			int aktNrZumKind = result.getInt("KindNR");
@@ -120,6 +127,7 @@ public class DbHelper {
 
 			angenehmeAktivitaeten = new AngenehmeAktivitaeten(aktNrZumKind, name, punkte, datum);
 			angenehmeAktList.add(angenehmeAktivitaeten);
+			
 		}
 	
 		return angenehmeAktList;
@@ -197,6 +205,77 @@ public class DbHelper {
 		return extrasAktList;
 
 	} // Ende Methode holenExtrasAktivitaeten()
+	
+	// Methode berechnet die Summe aller positiven Aktivitäten, die ein Kind
+	// innerhalb von .....
+	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind an und returniert die
+	// Summe als
+	// int zurück
 
+	public static int berechnePlusPunkte(Kinder kind) {
 
-}
+		int ergebnis = 0;
+
+		ArrayList<AngenehmeAktivitaeten> tempListAn = kind.getAngenehmeAktList();
+		AngenehmeAktivitaeten aa = null;
+
+		for (int i = 0; i < tempListAn.size(); i++) {
+			aa = tempListAn.get(i);
+			ergebnis += aa.getPunktenZahl();
+		}
+
+		return ergebnis;
+
+	} // Ende Methode berechnePlusPunkte()
+	
+	// Methode berechnet die Summe aller negativen Aktivitäten, die ein Kind
+	// innerhalb von .....
+	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind an und returniert die
+	// Summe als
+	// int zurück
+
+	public static int berechneMinusPunkte(Kinder kind) {
+
+		int ergebnisMinus = 0;
+
+		ArrayList<UnangenehmeAktivitaeten> tempListUn = kind.getUnangenehmeAktList();
+		UnangenehmeAktivitaeten ua = null;
+
+		for (int i = 0; i < tempListUn.size(); i++) {
+			ua = tempListUn.get(i);
+			ergebnisMinus += ua.getPunktenZahl();
+		}
+
+		return ergebnisMinus;
+
+	} // Ende Methode berechneMinusPunkte()
+	
+	public static int berechneZwischenPunkte(Kinder kind) {
+
+		int ergebnisZwischen = 0;
+
+		ergebnisZwischen = kind.getPunktenStart() + (kind.getStandAngenehm() - kind.getStandUnangenehm());
+
+		return ergebnisZwischen;
+
+	} // Ende Methode berechneZwischenPunkte()
+		
+	
+	public static int berechneExtraPunkte(Kinder kind) {
+
+		int ergebnisExtra = 0;
+
+		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		Extras extra = null;
+
+		for (int i = 0; i < tempListExtras.size(); i++) {
+			extra = tempListExtras.get(i);
+			ergebnisExtra += extra.getPunktenZahl();
+		}
+
+		return ergebnisExtra;
+
+	} // Ende Methode berechneExtraPunkte()
+
+	
+} // Ende class DbHelper

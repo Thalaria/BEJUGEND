@@ -32,16 +32,26 @@ public class Kinder {
 	
 	// Die ArrayList, die mit den Extra-Aktivitaeten parametrisiert wird
 	private ArrayList<Extras> extrasAktList = new ArrayList<>();
+	
+	private int standAngenehm;
+	
+	private int standUnangenehm;
+	
+	private int zwischenStand;
+	
+	private int standExtras;
 
 	// Constructors
+
 
 	public Kinder() {
 	}
 
-	public Kinder(int kindId, int alterKindes) {
+	public Kinder(int kindId, int alterKindes, int punktStart) {
 
 		this.kindId = kindId;
 		this.alterKindes = alterKindes;
+		this.punktenStart = punktStart;
 
 	}
 
@@ -106,6 +116,38 @@ public class Kinder {
 	public void setExtrasAktList(ArrayList<Extras> extrasAktList) {
 		this.extrasAktList = extrasAktList;
 	}
+	
+	public int getStandAngenehm() {
+		return standAngenehm;
+	}
+
+	public void setStandAngenehm(int standAngenehm) {
+		this.standAngenehm = standAngenehm;
+	}
+
+	public int getStandUnangenehm() {
+		return standUnangenehm;
+	}
+
+	public void setStandUnangenehm(int standUnangenehm) {
+		this.standUnangenehm = standUnangenehm;
+	}
+
+	public int getZwischenStand() {
+		return zwischenStand;
+	}
+
+	public void setZwischenStand(int zwischenStand) {
+		this.zwischenStand = zwischenStand;
+	}
+
+	public int getStandExtras() {
+		return standExtras;
+	}
+
+	public void setStandExtras(int standExtras) {
+		this.standExtras = standExtras;
+	}
 
 	// Methode toString(), die vom Objekt gererbt wird, überschreiben
 
@@ -117,4 +159,4 @@ public class Kinder {
 
 	}
 
-}
+} // Ende class Kinder
