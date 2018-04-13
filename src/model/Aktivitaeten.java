@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 //Eine abstrakte Klasse von Aktivitaeten wird definiert.
 
 abstract class Aktivitaeten {
@@ -8,6 +10,7 @@ abstract class Aktivitaeten {
 	protected int aktivitaetId;
 	protected String nameAktivitaet;
 	protected int punktenZahl;
+	protected Date eintragsDatum;
 
 	// Deklaration der Methoden der Klasse Aktivitaeten
 
@@ -35,11 +38,13 @@ abstract class Aktivitaeten {
 		this.punktenZahl = punktenZahl;
 	}
 
-	/*
-	 * // Deklaration der toString()-Methode, die aus der Objekt-Klasse vererbt
-	 * wird.
-	 * 
-	 * @Override public abstract String toString();
-	 */
+	public Date getEintragsDatum() {
+		return eintragsDatum;
+	}
+
+	public void setEintragsDatum(Date eintragsDatum) {
+		this.eintragsDatum = eintragsDatum;
+	}
+
 
 } //Ende der Klasse Aktivitaeten

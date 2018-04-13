@@ -36,7 +36,7 @@ public class PersonController implements Initializable {
 		tabView1.setItems(ol1);
 				
 		// (2) Table Columns an Attribute (Properties) der Klasse Person anbinden
-		colKindId.setCellValueFactory(new PropertyValueFactory<Kinder, String>("KindID"));
+		colKindId.setCellValueFactory(new PropertyValueFactory<Kinder, String>("KindId"));
 		colAlterKindes.setCellValueFactory(new PropertyValueFactory<Kinder, String>("AlterKindes"));
 		
 	}

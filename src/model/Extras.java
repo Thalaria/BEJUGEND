@@ -1,9 +1,13 @@
 package model;
 
+import java.util.Date;
+
 public class Extras extends Aktivitaeten {
 
 	// Attributes
 
+	// Nachdem diese Extra-Aktivität durchgeführt wurde, werden die u.s. Punkte
+	// abgezogen
 	private int danachAbziehenPunkte;
 
 	// Constructors definieren
@@ -11,15 +15,17 @@ public class Extras extends Aktivitaeten {
 
 	public Extras() {
 	}
-	
-	public Extras(int id, String name, int habenFuerPunkte) {
-		//super();
+
+	public Extras(int id, String name, int habenFuerPunkte, int danachAbziehenPunkte, Date datum) {
+		super();
 		this.aktivitaetId = id;
 		this.nameAktivitaet = name;
 		this.punktenZahl = habenFuerPunkte;
+		this.danachAbziehenPunkte = danachAbziehenPunkte;
+		this.eintragsDatum = datum;
 	}
 
-	// Getters und Setters f�rs das Attribut "danachAbziehenPunkte" erzeugen.
+	// Getters und Setters fürs das Attribut "danachAbziehenPunkte" erzeugen
 	public int getDanachAbziehenPunkte() {
 
 		return this.danachAbziehenPunkte;
@@ -32,13 +38,14 @@ public class Extras extends Aktivitaeten {
 
 	}
 
-	// Die toString()- Methode aus der Objekt-Klasse wird �berschrieben
+	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
 
 	@Override
 	public String toString() {
 
-		return "Kind: " + aktivitaetId + " " + nameAktivitaet + " " + punktenZahl + " " + danachAbziehenPunkte;
+		return "Extras: " + aktivitaetId + " " + nameAktivitaet + " " + punktenZahl + " " + eintragsDatum + " "
+				+ danachAbziehenPunkte;
 
 	}
 
-}// Ende class Extras
+} // Ende class Extras

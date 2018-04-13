@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javafx.collections.*;
 import model.AngenehmeAktivitaeten;
+import model.Extras;
 import model.Kinder;
 import model.UnangenehmeAktivitaeten;
 
@@ -26,7 +27,7 @@ public class DbHelper {
 		
 		String prep = "INSERT INTO kinder (KindID, AlterKindes) VALUES (?, ?)";
 		
-		int kindId = k.getKindID();
+		int kindId = k.getKindId();
 		
 		int alterKindes = k.getAlterKindes();
 		
@@ -44,7 +45,7 @@ public class DbHelper {
 		
 		String prep = "DELETE FROM kinder WHERE KinderID = ?";
 		
-		int kindId = k.getKindID();
+		int kindId = k.getKindId();
 		
 		PreparedStatement prepStat = connection.prepareStatement(prep);
 		
@@ -75,9 +76,12 @@ public class DbHelper {
 				
 				kTemp.setAngenehmeAktList(holenAngenehmeAktivitaeten(kindId));
 				kTemp.setUnangenehmeAktList(holenUnangenehmeAktivitaeten(kindId));
+				kTemp.setExtrasAktList(holenExtrasAktivitaeten(kindId));
+				
 				ol.add(kTemp);
 				
 			}
+			
 			logger.debug(ol);
 			
 		} catch (SQLException e) {
@@ -88,10 +92,9 @@ public class DbHelper {
 		
 	}
 
-	// Methode braucht als Übergabeparameter eine Id des Kindes und selektiert zu
-	// jedem Kind
-	// die AngenehmeAktivitaeten, fügt sie zu der angenehmeAktList hinzu
-	// und gibt die Liste dann zurück
+	// Methode braucht als Ãœbergabeparameter eine Id des Kindes und selektiert zu jedem Kind
+	// die AngenehmeAktivitaeten, fÃ¼gt sie zu der angenehmeAktList hinzu
+	// und gibt die Liste dann zurÃ¼ck
 
 	public static ArrayList<AngenehmeAktivitaeten> holenAngenehmeAktivitaeten(int kindId) throws SQLException {
 
@@ -103,8 +106,6 @@ public class DbHelper {
 				+ "FROM kindangenehmeaktivitaet kaa JOIN angenehmeaktivitaeten aa "
 				+ " ON (kaa.AngenehmeAktivitaetNR = aa.AngenehmeID) WHERE kaa.KindNR = ? ";
 
-		// int idKind = kind.getKindID();
-
 		PreparedStatement prepStat = connection.prepareStatement(sqlQuery);
 
 		prepStat.setInt(1, kindId);
@@ -113,24 +114,22 @@ public class DbHelper {
 
 		while (result.next()) {
 			Date datum = result.getDate("EintragsDatum");
-			int aktNr = result.getInt("KindNR");
+			int aktNrZumKind = result.getInt("KindNR");
 			String name = result.getString("Name");
 			int punkte = result.getInt("PlusPunktenZahl");
 
-			angenehmeAktivitaeten = new AngenehmeAktivitaeten(aktNr, name, punkte);
+			angenehmeAktivitaeten = new AngenehmeAktivitaeten(aktNrZumKind, name, punkte, datum);
 			angenehmeAktList.add(angenehmeAktivitaeten);
 		}
-		System.out.println("connection erzeugt");
-
+	
 		return angenehmeAktList;
 
 	} // Ende Methode holenAngenehmeAktivitaeten()
 
 		
-	// Methode braucht als Übergabeparameter eine Id des Kindes und selektiert zu
-	// jedem Kind
-	// die AngenehmeAktivitaeten, fügt sie zu der angenehmeAktList hinzu
-	// und gibt die Liste dann zurück
+	// Methode braucht als Ãœbergabeparameter eine Id des Kindes und selektiert zu jedem Kind
+	// die UnangenehmeAktivitaeten, fÃ¼gt sie zu der unangenehmeAktList hinzu
+	// und gibt die Liste dann zurÃ¼ck
 
 	public static ArrayList<UnangenehmeAktivitaeten> holenUnangenehmeAktivitaeten(int kindId) 
 			throws SQLException {
@@ -152,17 +151,52 @@ public class DbHelper {
 
 		while (result.next()) {
 			Date datum = result.getDate("EintragsDatum");
-			int aktNr = result.getInt("KindNR");
+			int aktNrZumKind = result.getInt("KindNR");
 			String name = result.getString("Name");
 			int punkte = result.getInt("MinusPunktenZahl");
 
-			unangenehmeAktivitaeten = new UnangenehmeAktivitaeten(aktNr, name, punkte);
+			unangenehmeAktivitaeten = new UnangenehmeAktivitaeten(aktNrZumKind, name, punkte, datum);
 			unangenehmeAktList.add(unangenehmeAktivitaeten);
 		}
-		System.out.println("connection erzeugt");
 
 		return unangenehmeAktList;
 
 	} // Ende Methode holenUnangenehmeAktivitaeten()
+	
+	// Methode braucht als Ãœbergabeparameter eine Id des Kindes und selektiert zu jedem Kind
+	// die ExtraAktivitaeten, fÃ¼gt sie zu der extrasAktList hinzu
+	// und gibt die Liste dann zurÃ¼ck
+
+	public static ArrayList<Extras> holenExtrasAktivitaeten(int kindId) throws SQLException {
+
+		ArrayList<Extras> extrasAktList = new ArrayList<>();
+		Extras extrasAktivitaeten;
+		// Select Befehl:Query
+
+		String sqlQuery = "SELECT kindextras.EintragsDatum, kindextras.KindNR, extras.Name, extras.HabenFÃ¼rPunkte, extras.DanachAbziehenPunkte "
+				+ "FROM kindextras JOIN extras"
+				+ " ON (kindextras.ExtrasNR = extras.ExtrasID) WHERE kindextras.KindNR = ? ";
+
+		PreparedStatement prepStat = connection.prepareStatement(sqlQuery);
+
+		prepStat.setInt(1, kindId);
+
+		ResultSet result = prepStat.executeQuery();
+
+		while (result.next()) {
+			Date datum = result.getDate("EintragsDatum");
+			int extraNrZumKind = result.getInt("KindNR");
+			String name = result.getString("Name");
+			int habenPunkte = result.getInt("HabenFÃ¼rPunkte");
+			int abzugPunkte = result.getInt("DanachAbziehenPunkte");
+
+			extrasAktivitaeten = new Extras(extraNrZumKind, name, habenPunkte, abzugPunkte, datum);
+			extrasAktList.add(extrasAktivitaeten);
+		}
+	
+		return extrasAktList;
+
+	} // Ende Methode holenExtrasAktivitaeten()
+
 
 }

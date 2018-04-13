@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 public class UnangenehmeAktivitaeten extends Aktivitaeten {
 
 	// Attributes
@@ -7,22 +9,24 @@ public class UnangenehmeAktivitaeten extends Aktivitaeten {
 	// Constructors - hier wird der super()-Konstruktor der Aktivitaeten-Klasse
 	// aufgerufen
 
-	public UnangenehmeAktivitaeten(int id, String name, int punkte) {
+	public UnangenehmeAktivitaeten(int id, String name, int punkte, Date datum) {
 
 		super();
 
 		this.aktivitaetId = id;
 		this.nameAktivitaet = name;
 		this.punktenZahl = punkte;
+		this.eintragsDatum = datum;
 	}
 
-	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
+	// Die toString()- Methode aus der Objekt-Klasse wird Ã¼berschrieben
 
 	@Override
 	public String toString() {
 
-		return "Kind: " + aktivitaetId + " " + nameAktivitaet + " " + punktenZahl;
+		return "UnangenehmeAktivitaeten: " + aktivitaetId + " " + nameAktivitaet + " " +   
+		         punktenZahl + " " + eintragsDatum;
 
 	}
 
-}//Ende der Klasse UnangenehmeAktivitaeten
+} //Ende der Klasse UnangenehmeAktivitaeten
