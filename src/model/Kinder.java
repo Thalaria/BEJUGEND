@@ -1,36 +1,33 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import helper.DbHelper;
 
 public class Kinder {
 
-	// Attributes
+	// Private Attribute
 	
-    //Die Id des Kindes 
+    // Die Id des Kindes 
+	
 	private int kindId;
 	
-	//Das Alter des Kindes 
+	// Das Alter des Kindes 
+	
 	private int alterKindes;
 	
-	//Jedes Kind verfügt anhand des Alters über einen Punktenstart
+	// Jedes Kind verfügt anhand des Alters über einen Punktenstart
+	
 	private int punktenStart;
 
 	// Die ArrayList, die mit den AngenehmeAktivitaeten parametrisiert wird
+	
 	private ArrayList<AngenehmeAktivitaeten> angenehmeAktList = new ArrayList<>();
 
 	// Die ArrayList, die mit den UnangenehmeAktivitaeten parametrisiert wird
+	
 	private ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList = new ArrayList<>();
 	
 	// Die ArrayList, die mit den Extra-Aktivitaeten parametrisiert wird
+	
 	private ArrayList<Extras> extrasAktList = new ArrayList<>();
 	
 	private int standAngenehm;
@@ -40,12 +37,10 @@ public class Kinder {
 	private int zwischenStand;
 	
 	private int standExtras;
+	
+	// Konstruktoren
 
-	// Constructors
-
-
-	public Kinder() {
-	}
+	public Kinder() { }
 
 	public Kinder(int kindId, int alterKindes, int punktStart) {
 
@@ -94,61 +89,91 @@ public class Kinder {
 	}
 
 	public ArrayList<AngenehmeAktivitaeten> getAngenehmeAktList() {
+		
 		return angenehmeAktList;
+		
 	}
 
 	public void setAngenehmeAktList(ArrayList<AngenehmeAktivitaeten> angenehmeAktList) {
+		
 		this.angenehmeAktList = angenehmeAktList;
+		
 	}
 
 	public ArrayList<UnangenehmeAktivitaeten> getUnangenehmeAktList() {
+		
 		return unangenehmeAktList;
+		
 	}
 
 	public void setUnangenehmeAktList(ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList) {
+		
 		this.unangenehmeAktList = unangenehmeAktList;
+		
 	}
 	
 	public ArrayList<Extras> getExtrasAktList() {
+		
 		return extrasAktList;
+		
 	}
 
 	public void setExtrasAktList(ArrayList<Extras> extrasAktList) {
+		
 		this.extrasAktList = extrasAktList;
+		
 	}
 	
 	public int getStandAngenehm() {
+		
 		return standAngenehm;
+		
 	}
 
 	public void setStandAngenehm(int standAngenehm) {
+		
 		this.standAngenehm = standAngenehm;
+		
 	}
 
 	public int getStandUnangenehm() {
+		
 		return standUnangenehm;
+		
 	}
 
 	public void setStandUnangenehm(int standUnangenehm) {
+		
 		this.standUnangenehm = standUnangenehm;
+		
 	}
 
 	public int getZwischenStand() {
+		
 		return zwischenStand;
+		
 	}
 
 	public void setZwischenStand(int zwischenStand) {
+		
 		this.zwischenStand = zwischenStand;
+		
 	}
 
 	public int getStandExtras() {
+		
 		return standExtras;
+		
 	}
 
 	public void setStandExtras(int standExtras) {
+		
 		this.standExtras = standExtras;
+		
 	}
 
+	// Methoden
+	
 	// Methode toString(), die vom Objekt gererbt wird, überschreiben
 
 	@Override
@@ -159,4 +184,4 @@ public class Kinder {
 
 	}
 
-} // Ende class Kinder
+} // Ende der Klasse Kinder

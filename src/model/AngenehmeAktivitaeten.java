@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class AngenehmeAktivitaeten extends Aktivitaeten {
 
-	// Attributes
-
-	// Constructors - hier wird der super()-Konstruktor der Aktivitaeten-klasse
+	// Konstruktoren - Hier wird der super()-Konstruktor der Aktivitaeten-Klasse
 	// aufgerufen
 
+	public AngenehmeAktivitaeten() { }
+	
 	public AngenehmeAktivitaeten(int id, String name, int punkte, Date datum) {
 
 		super();
@@ -17,9 +17,13 @@ public class AngenehmeAktivitaeten extends Aktivitaeten {
 		this.nameAktivitaet = name;
 		this.punktenZahl = punkte;
 		this.eintragsDatum = datum;
+		
 	}
 
+	// Methoden
+	
 	// Die toString()- Methode aus der Objekt-Klasse wird überschrieben
+	
 	@Override
 	public String toString() {
 

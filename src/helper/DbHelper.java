@@ -13,15 +13,15 @@ import model.UnangenehmeAktivitaeten;
 
 public class DbHelper {
 
-	// Private attributes
+	// Private Attribute
 	
 	private static final Logger logger = LogManager.getLogger(DbHelper.class);
 	
-	// Public attributes
+	// Public Attribute
 	
 	public static Connection connection;
 	
-	// Methods
+	// Methoden
 	
 	public static void addKindToDb(Kinder k) throws SQLException {
 		
@@ -68,7 +68,6 @@ public class DbHelper {
 			while(res.next()) {
 				
 				int kindId = res.getInt("KindID");
-				
 				int alterKindes = res.getInt("AlterKindes");
 				int punktStart = res.getInt("PunktenStart");
 				
@@ -106,26 +105,33 @@ public class DbHelper {
 	public static ArrayList<AngenehmeAktivitaeten> holenAngenehmeAktivitaeten(int kindId) throws SQLException {
 
 		ArrayList<AngenehmeAktivitaeten> angenehmeAktList = new ArrayList<>();
+		
 		AngenehmeAktivitaeten angenehmeAktivitaeten;
+		
 		// Select Befehl:Query
 
 		String sqlQuery = "SELECT kaa.EintragsDatum, kaa.KindNR, aa.Name, aa.PlusPunktenZahl "
-				+ "FROM kindangenehmeaktivitaet kaa JOIN angenehmeaktivitaeten aa "
-				+ " ON (kaa.AngenehmeAktivitaetNR = aa.AngenehmeID) WHERE kaa.KindNR = ? ";
+						+ "FROM kindangenehmeaktivitaet kaa JOIN angenehmeaktivitaeten aa "
+						+ " ON (kaa.AngenehmeAktivitaetNR = aa.AngenehmeID) WHERE kaa.KindNR = ? ";
 
 		PreparedStatement prepStat = connection.prepareStatement(sqlQuery);
 
 		prepStat.setInt(1, kindId);
 
 		ResultSet result = prepStat.executeQuery();
-        int ergebnis;
+
 		while (result.next()) {
+			
 			Date datum = result.getDate("EintragsDatum");
+			
 			int aktNrZumKind = result.getInt("KindNR");
+			
 			String name = result.getString("Name");
+			
 			int punkte = result.getInt("PlusPunktenZahl");
 
 			angenehmeAktivitaeten = new AngenehmeAktivitaeten(aktNrZumKind, name, punkte, datum);
+			
 			angenehmeAktList.add(angenehmeAktivitaeten);
 			
 		}
@@ -134,22 +140,19 @@ public class DbHelper {
 
 	} // Ende Methode holenAngenehmeAktivitaeten()
 
-		
 	// Methode braucht als Übergabeparameter eine Id des Kindes und selektiert zu jedem Kind
 	// die UnangenehmeAktivitaeten, fügt sie zu der unangenehmeAktList hinzu
 	// und gibt die Liste dann zurück
 
-	public static ArrayList<UnangenehmeAktivitaeten> holenUnangenehmeAktivitaeten(int kindId) 
-			throws SQLException {
+	public static ArrayList<UnangenehmeAktivitaeten> holenUnangenehmeAktivitaeten(int kindId) throws SQLException {
 
 		ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList = new ArrayList<>();
+		
 		UnangenehmeAktivitaeten unangenehmeAktivitaeten;
 		
 		String sqlQuery = "SELECT kua.EintragsDatum, kua.KindNR, ua.Name, ua.MinusPunktenZahl "
-				+ "FROM kindunangenehmeaktivitaet kua JOIN unangenehmeaktivitaeten ua "
-				+ " ON (kua.UnangenehmeAktivitaetNR = ua.UnangenehmeID) WHERE kua.KindNR = ? ";
-
-		// int idKind = kind.getKindID();
+						+ "FROM kindunangenehmeaktivitaet kua JOIN unangenehmeaktivitaeten ua "
+						+ " ON (kua.UnangenehmeAktivitaetNR = ua.UnangenehmeID) WHERE kua.KindNR = ? ";
 
 		PreparedStatement prepStat = connection.prepareStatement(sqlQuery);
 
@@ -158,13 +161,19 @@ public class DbHelper {
 		ResultSet result = prepStat.executeQuery();
 
 		while (result.next()) {
+			
 			Date datum = result.getDate("EintragsDatum");
+			
 			int aktNrZumKind = result.getInt("KindNR");
+			
 			String name = result.getString("Name");
+			
 			int punkte = result.getInt("MinusPunktenZahl");
 
 			unangenehmeAktivitaeten = new UnangenehmeAktivitaeten(aktNrZumKind, name, punkte, datum);
+			
 			unangenehmeAktList.add(unangenehmeAktivitaeten);
+			
 		}
 
 		return unangenehmeAktList;
@@ -178,12 +187,14 @@ public class DbHelper {
 	public static ArrayList<Extras> holenExtrasAktivitaeten(int kindId) throws SQLException {
 
 		ArrayList<Extras> extrasAktList = new ArrayList<>();
+		
 		Extras extrasAktivitaeten;
+		
 		// Select Befehl:Query
 
 		String sqlQuery = "SELECT kindextras.EintragsDatum, kindextras.KindNR, extras.Name, extras.HabenFürPunkte, extras.DanachAbziehenPunkte "
-				+ "FROM kindextras JOIN extras"
-				+ " ON (kindextras.ExtrasNR = extras.ExtrasID) WHERE kindextras.KindNR = ? ";
+						+ "FROM kindextras JOIN extras"
+						+ " ON (kindextras.ExtrasNR = extras.ExtrasID) WHERE kindextras.KindNR = ? ";
 
 		PreparedStatement prepStat = connection.prepareStatement(sqlQuery);
 
@@ -192,14 +203,21 @@ public class DbHelper {
 		ResultSet result = prepStat.executeQuery();
 
 		while (result.next()) {
+			
 			Date datum = result.getDate("EintragsDatum");
+			
 			int extraNrZumKind = result.getInt("KindNR");
+			
 			String name = result.getString("Name");
+			
 			int habenPunkte = result.getInt("HabenFürPunkte");
+			
 			int abzugPunkte = result.getInt("DanachAbziehenPunkte");
 
 			extrasAktivitaeten = new Extras(extraNrZumKind, name, habenPunkte, abzugPunkte, datum);
+			
 			extrasAktList.add(extrasAktivitaeten);
+			
 		}
 	
 		return extrasAktList;
@@ -208,29 +226,33 @@ public class DbHelper {
 	
 	// Methode berechnet die Summe aller positiven Aktivitäten, die ein Kind
 	// innerhalb von .....
-	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind an und returniert die
+	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind-Objekt an und returniert die
 	// Summe als
 	// int zurück
 
 	public static int berechnePlusPunkte(Kinder kind) {
 
-		int ergebnis = 0;
+		int ergebnisPlus = 0;
 
 		ArrayList<AngenehmeAktivitaeten> tempListAn = kind.getAngenehmeAktList();
+		
 		AngenehmeAktivitaeten aa = null;
 
 		for (int i = 0; i < tempListAn.size(); i++) {
+			
 			aa = tempListAn.get(i);
-			ergebnis += aa.getPunktenZahl();
+			
+			ergebnisPlus += aa.getPunktenZahl();
+			
 		}
 
-		return ergebnis;
+		return ergebnisPlus;
 
 	} // Ende Methode berechnePlusPunkte()
 	
 	// Methode berechnet die Summe aller negativen Aktivitäten, die ein Kind
 	// innerhalb von .....
-	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind an und returniert die
+	// gemacht hat. Als Übergabeparameter nimmt sie ein Kind-Objekt an und returniert die
 	// Summe als
 	// int zurück
 
@@ -239,11 +261,15 @@ public class DbHelper {
 		int ergebnisMinus = 0;
 
 		ArrayList<UnangenehmeAktivitaeten> tempListUn = kind.getUnangenehmeAktList();
+		
 		UnangenehmeAktivitaeten ua = null;
 
 		for (int i = 0; i < tempListUn.size(); i++) {
+			
 			ua = tempListUn.get(i);
+			
 			ergebnisMinus += ua.getPunktenZahl();
+			
 		}
 
 		return ergebnisMinus;
@@ -259,18 +285,21 @@ public class DbHelper {
 		return ergebnisZwischen;
 
 	} // Ende Methode berechneZwischenPunkte()
-		
 	
 	public static int berechneExtraPunkte(Kinder kind) {
 
 		int ergebnisExtra = 0;
 
 		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		
 		Extras extra = null;
 
 		for (int i = 0; i < tempListExtras.size(); i++) {
+			
 			extra = tempListExtras.get(i);
+			
 			ergebnisExtra += extra.getPunktenZahl();
+			
 		}
 
 		return ergebnisExtra;
@@ -278,4 +307,4 @@ public class DbHelper {
 	} // Ende Methode berechneExtraPunkte()
 
 	
-} // Ende class DbHelper
+} // Ende der Klasse DbHelper

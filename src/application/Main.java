@@ -1,36 +1,34 @@
 package application;
 
-import org.apache.logging.log4j.*;
 import java.net.URL;
-import java.sql.*;
-import java.util.ArrayList;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import helper.DbHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.AngenehmeAktivitaeten;
-import model.Kinder;
-import helper.DbHelper;
 
 public class Main extends Application {
 	
-	// Private attributes
+	// Private Attribute
 	
 	private final static Logger logger = LogManager.getLogger(Main.class);
 	
 	private final static String urlDB = "jdbc:mysql://localhost:3306/bewertungssystem";
 	private final static String dbUser = "root";
-	private final static String dbPassword = "";
+	private final static String dbPassword = "root";
 	
-	// Public attributes
-	
-	// Methods
+	// Methoden
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-		// Main window will be crated
+		// Hauptfenster wird erstellt
 		
 		try {
 			
@@ -43,6 +41,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);
+			
 			primaryStage.setTitle("BEJUGEND");
 			
 			primaryStage.show();
@@ -53,17 +52,19 @@ public class Main extends Application {
 			
 		}
 		
-	}
+	} // Ende der Methode start()
 	
 	public static void main(String[] args) {
 		
-		// Db connection will be established
+		// Datenbank-Verbindung wird hergestellt
 		
 		try(Connection connection = DriverManager.getConnection(urlDB, dbUser, dbPassword)) {
 			
+			// Das "connection"-Objekt wird in das globale Objekt der Klasse DbHelper geschrieben
+			
 			DbHelper.connection = connection;
 			
-			// JavaFX application will be started
+			// JavaFX Anwendung wird gestartet
 		
 			launch(args);
 			
@@ -73,6 +74,6 @@ public class Main extends Application {
 			
 		}
 		
-	}
+	} // Ende der Methode main()
 	
-}
+} // Ende der Klasse Main

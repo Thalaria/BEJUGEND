@@ -4,32 +4,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import helper.ActionButtonTableCell;
 import helper.DbHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import model.Kinder;
+import org.controlsfx.*;
 
-public class KinderController implements Initializable {
+public class AdminController implements Initializable {
 
 	// Private Attribute
-
-	private final static Logger logger = LogManager.getLogger(KinderController.class);
-
+	
+	private final static Logger logger = LogManager.getLogger(AdminController.class);
+	
 	private static ObservableList<Kinder> ol = FXCollections.observableArrayList();
 	
 	// Methoden
-	
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-        
-		logger.debug("Initializing KinderController...");
+		
+		logger.debug("Initializing AdminController...");
 		
 		// Table Columns erstellen
 		
@@ -40,6 +43,11 @@ public class KinderController implements Initializable {
 		TableColumn<Kinder, Integer> colZwischenStand = new TableColumn<Kinder, Integer>("Zwischenstand");
 		TableColumn<Kinder, Integer> colStandExtras = new TableColumn<Kinder, Integer>("Punktestand Extras");
 		
+		// Button-Spalten
+		
+		TableColumn colEditAction = new TableColumn();
+		TableColumn colRemoveAction = new TableColumn();
+		
 		// Table Columns an Attribute (Properties) der Klasse Kinder anbinden
 		
 		colKindId.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("KindId"));
@@ -48,35 +56,58 @@ public class KinderController implements Initializable {
 		colStandUnangenehm.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandUnangenehm"));
 		colZwischenStand.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("ZwischenStand"));
 		colStandExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandExtras"));
+
+		// Button-Spalten
+		
+		colEditAction.setCellFactory(ActionButtonTableCell.<Kinder>forTableColumn("Bearbeiten", (Kinder k) -> {
+			// to do "Bearbeiten"
+			return k;
+		}));
+		
+		colRemoveAction.setCellFactory(ActionButtonTableCell.<Kinder>forTableColumn("Löschen", (Kinder k) -> {
+			ol.remove(k);
+			return k;
+		}));
 		
 		// Table Columns in die Table View einbinden
 		
-		tvKinderView.getColumns().add(colKindId);
-		tvKinderView.getColumns().add(colAlterKindes);
-		tvKinderView.getColumns().add(colStandAngenehm);
-		tvKinderView.getColumns().add(colStandUnangenehm);
-		tvKinderView.getColumns().add(colZwischenStand);
-		tvKinderView.getColumns().add(colStandExtras);
+		tvAdminView.getColumns().add(colKindId);
+		tvAdminView.getColumns().add(colAlterKindes);
+		tvAdminView.getColumns().add(colStandAngenehm);
+		tvAdminView.getColumns().add(colStandUnangenehm);
+		tvAdminView.getColumns().add(colZwischenStand);
+		tvAdminView.getColumns().add(colStandExtras);
+		
+		// Button-Spalten
+		
+		tvAdminView.getColumns().add(colEditAction);
+		tvAdminView.getColumns().add(colRemoveAction);
 		
 		DbHelper.getKindFromDB(ol);
 
 		// Observable List an die Table View anbinden
 		
-		tvKinderView.setItems(ol);
+		tvAdminView.setItems(ol);
 		
 	}
 
-	@FXML
-	private TableView<Kinder> tvKinderView;
+    @FXML
+    private TableView<Kinder> tvAdminView;
+	
+    @FXML
+    private Button butCloseApplication;
 
-	@FXML
-	private Button butButtonSchließen;
+    @FXML
+    private Button butAddNewRow;
 
-	@FXML
-	void setOnActionSchließen(ActionEvent event) {
+    @FXML
+    void setOnClickedCloseApplication(MouseEvent event) {
 
-		System.exit(0);
-		
-	}
+    }
+    
+    @FXML
+    void setOnClickedAddNewObject(MouseEvent event) {
 
-} // Ende der Klasse KinderController
+    }
+	
+} // Ende der Klasse AdminController

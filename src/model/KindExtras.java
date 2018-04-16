@@ -4,16 +4,15 @@ import java.util.Date;
 
 public class KindExtras {
 
-	// Attributes
+	// Private Attributes
 	
 	private Date eintragsDatum;
 	private int kindNr;
 	private int extrasNr;
 	
-	// Constructors
+	// Konstruktoren
 	
-	public KindExtras() {
-	}
+	public KindExtras() { }
 	
 	public KindExtras(int extrasNr) {
 		
@@ -59,7 +58,7 @@ public class KindExtras {
 		
 	}
 	
-	// Methods
+	// Methoden
 	
 	@Override
 	public String toString() {
@@ -68,4 +67,4 @@ public class KindExtras {
 		
 	}
 	
-}
+} // Ende der Klasse KindExtras
