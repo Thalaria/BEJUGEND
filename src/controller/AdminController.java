@@ -115,7 +115,7 @@ public class AdminController implements Initializable {
     @FXML
     void setOnActionCloseAdministration(ActionEvent event) {
 
-    	URL location = Main.class.getResource("MainView.fxml");
+    	URL location = Main.class.getResource("KinderView.fxml");
     	
     	AnchorPane mainPane = null;
     	

@@ -32,7 +32,7 @@ public class Main extends Application {
 		
 		try {
 			
-			URL location = Main.class.getResource("MainView.fxml");
+			URL location = Main.class.getResource("KinderView.fxml");
 			
 			Parent root = FXMLLoader.load(location);
 			
