@@ -7,11 +7,15 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
-public class ActionButtonTableCell<S> extends TableCell<S, Button> {
+public class ActionButtonTableCell<T> extends TableCell<T, Button> {
 
+	// Private Attribute
+	
     private final Button actionButton;
 
-    public ActionButtonTableCell(String label, Function<S, S> function) {
+    // Konstruktor
+    
+    public ActionButtonTableCell(String label, Function<T, T> function) {
         
         this.actionButton = new Button(label);
         
@@ -25,13 +29,15 @@ public class ActionButtonTableCell<S> extends TableCell<S, Button> {
         
     }
 
-    public S getCurrentItem() {
+    // Methoden
+    
+    public T getCurrentItem() {
     	
-        return (S) getTableView().getItems().get(getIndex());
+        return (T) getTableView().getItems().get(getIndex());
         
     }
 
-    public static <S> Callback<TableColumn<S, Button>, TableCell<S, Button>> forTableColumn(String label, Function<S, S> function) {
+    public static <T> Callback<TableColumn<T, Button>, TableCell<T, Button>> forTableColumn(String label, Function<T, T> function) {
     	
         return param -> new ActionButtonTableCell<>(label, function);
         

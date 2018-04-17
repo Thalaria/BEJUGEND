@@ -1,19 +1,24 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import application.Main;
 import helper.DbHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import model.Kinder;
 
 public class KinderController implements Initializable {
@@ -30,6 +35,10 @@ public class KinderController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
         
 		logger.debug("Initializing KinderController...");
+		
+		// Observeable List leeren, damit beim zurückspringen zu dieser View keine doppelten Inhalte erstellt werden
+		
+		ol.clear();
 		
 		// Table Columns erstellen
 		
@@ -65,18 +74,47 @@ public class KinderController implements Initializable {
 		tvKinderView.setItems(ol);
 		
 	}
-
+	
+    @FXML
+    private AnchorPane apMainView;
+	
 	@FXML
 	private TableView<Kinder> tvKinderView;
 
 	@FXML
-	private Button butButtonSchließen;
+	private Button butButtonCloseApplication;
 
+    @FXML
+    private Button butButtonOpenAdministration;
+	
 	@FXML
-	void setOnActionSchließen(ActionEvent event) {
+	void setOnActionCloseApplication(ActionEvent event) {
 
 		System.exit(0);
 		
 	}
+	
+	// Hier findet der Wechsel der Ansicht nach dem drücken des Buttons statt
+	
+    @FXML
+    void setOnActionOpenAdministration(ActionEvent event) {
+    	
+    	URL location = Main.class.getResource("AdminView.fxml");
+    	
+    	AnchorPane adminPane = null;
+    	
+		try {
+			
+			adminPane = FXMLLoader.load(location);
+			
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			
+		}
+		
+    	apMainView.getChildren().setAll(adminPane);
+
+    }
 
 } // Ende der Klasse KinderController

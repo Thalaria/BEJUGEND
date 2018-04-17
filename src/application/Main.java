@@ -40,10 +40,28 @@ public class Main extends Application {
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			primaryStage.setScene(scene);
+			// Titel der Anwendung setzen
 			
 			primaryStage.setTitle("BEJUGEND");
 			
+			// groessenanpassung erlauben
+            
+			primaryStage.setResizable(false);
+            
+            // Vollbildmodus ausschalten (default aus)
+            
+			primaryStage.setFullScreen(false);
+            
+            // Größe des Fensters auf die Größe des Contents setzen
+            
+			primaryStage.sizeToScene();
+
+            // Scene der Stage zuweisen
+            
+			primaryStage.setScene(scene);
+            
+            // Stage anzeigen 
+            
 			primaryStage.show();
 			
 		} catch (Exception e) {

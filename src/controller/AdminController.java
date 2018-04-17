@@ -1,22 +1,25 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import application.Main;
 import helper.ActionButtonTableCell;
 import helper.DbHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import model.Kinder;
-import org.controlsfx.*;
 
 public class AdminController implements Initializable {
 
@@ -33,6 +36,10 @@ public class AdminController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		logger.debug("Initializing AdminController...");
+		
+		// Observable List leeren
+		
+		ol.clear();
 		
 		// Table Columns erstellen
 		
@@ -82,31 +89,52 @@ public class AdminController implements Initializable {
 		
 		tvAdminView.getColumns().add(colEditAction);
 		tvAdminView.getColumns().add(colRemoveAction);
-		
-		DbHelper.getKindFromDB(ol);
 
 		// Observable List an die Table View anbinden
+		
+		DbHelper.getKindFromDB(ol);
 		
 		tvAdminView.setItems(ol);
 		
 	}
-
+	
+    @FXML
+    private AnchorPane apAdminView;
+	
     @FXML
     private TableView<Kinder> tvAdminView;
 	
     @FXML
-    private Button butCloseApplication;
+    private Button butButtonCloseAdministration;
 
     @FXML
-    private Button butAddNewRow;
+    private Button butButtonAddNewDbEntry;
 
-    @FXML
-    void setOnClickedCloseApplication(MouseEvent event) {
-
-    }
+	// Hier findet der Wechsel der Ansicht nach dem drücken des Buttons statt
     
     @FXML
-    void setOnClickedAddNewObject(MouseEvent event) {
+    void setOnActionCloseAdministration(ActionEvent event) {
+
+    	URL location = Main.class.getResource("MainView.fxml");
+    	
+    	AnchorPane mainPane = null;
+    	
+		try {
+			
+			mainPane = FXMLLoader.load(location);
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+    	apAdminView.getChildren().setAll(mainPane);
+    	
+    }
+
+    @FXML
+    void setOnActionAddNewDbEntry(ActionEvent event) {
 
     }
 	
