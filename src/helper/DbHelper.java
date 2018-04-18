@@ -22,6 +22,8 @@ public class DbHelper {
 	
 	// Methoden
 	
+	// Wird aktuell nicht benutzt!!!
+	
 	public static void addKindToDb(Kinder k) throws SQLException {
 		
 		String prep = "INSERT INTO kinder (KindID, AlterKindes) VALUES (?, ?)";
@@ -40,6 +42,8 @@ public class DbHelper {
 		
 	}
 	
+	// Wird aktuell nicht benutzt!!!
+	
 	public static void removeKindFromDb(Kinder k) throws SQLException {
 		
 		String prep = "DELETE FROM kinder WHERE KinderID = ?";
@@ -54,9 +58,11 @@ public class DbHelper {
 		
 	}
 	
+	// Füllt eine ObservableList mit allen Attributen zum Kind-Objekt
+	
 	public static void getKindFromDB(ObservableList<Kinder> ol) {
 			
-		String sqlQuery = "SELECT * from kinder";
+		String sqlQuery = "SELECT * FROM Kinder";
 		
 		try {
 			
