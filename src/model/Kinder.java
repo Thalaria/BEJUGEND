@@ -30,13 +30,33 @@ public class Kinder {
 	
 	private ArrayList<Extras> extrasAktList = new ArrayList<>();
 	
+	// Die Summer aller angenehemen Aktivitäten aus der Liste "angenehmeAktList"
+	
 	private int standAngenehm;
+	
+	// Die Summe aller unangenehemen Aktivitäten aus der Liste "unangenehmeAktList"
 	
 	private int standUnangenehm;
 	
+	// Ein berechneter Wert, der sich aus (punktenStart + standAngenehm - standUnangenehm) zusammensetzt
+	
 	private int zwischenStand;
 	
+	// Die Summe aller Extras aus der Liste "extrasAktList"
+	
 	private int standExtras;
+	
+	// Dieser Wert gibt die Punktezahl an, die eine Extra-Aktivität "ergattert"
+	
+	private int habenExtras;
+	
+	// Dieser Wert wird nach der ausgeführten Extra-Aktivität vom Zwischenstand abgezogen
+	
+	private int abziehenExtras;
+	
+	// Dieser Wert wird gibt an, wieviel Punkte das Kind nach ausführen der Extra-Aktiviaet noch übrig hat
+	
+	private int standNachExtras;
 	
 	// Konstruktoren
 
@@ -172,6 +192,42 @@ public class Kinder {
 		
 	}
 
+	public int getHabenExtras() {
+		
+		return this.habenExtras;
+		
+	}
+
+	public void setHabenExtras(int habenExtras) {
+		
+		this.habenExtras = habenExtras;
+		
+	}
+
+	public int getAbziehenExtras() {
+		
+		return this.abziehenExtras;
+		
+	}
+
+	public void setAbziehenExtras(int abziehenExtras) {
+		
+		this.abziehenExtras = abziehenExtras;
+		
+	}
+	
+	public int getStandNachExtras() {
+		
+		return this.standNachExtras;
+		
+	}
+
+	public void setStandNachExtras(int standNachExtras) {
+		
+		this.standNachExtras = standNachExtras;
+		
+	}
+	
 	// Methoden
 	
 	// Methode toString(), die vom Objekt gererbt wird, überschreiben
@@ -179,8 +235,7 @@ public class Kinder {
 	@Override
 	public String toString() {
 
-		return "Das Kind mit der : " + kindId + " " + alterKindes + " " + punktenStart + " " + angenehmeAktList + " "
-				+ unangenehmeAktList + " " + extrasAktList;
+		return "Das Kind mit der ID: " + kindId + "\n" + alterKindes + "\n " + punktenStart + "\n" + angenehmeAktList + "\n" + unangenehmeAktList + "\n" + extrasAktList;
 
 	}
 

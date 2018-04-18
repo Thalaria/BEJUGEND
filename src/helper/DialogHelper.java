@@ -39,11 +39,11 @@ public class DialogHelper {
 			
 			if (result.get() == ButtonType.OK) {
 				
-				// User chose OK
+				// User choose OK -> Functionality has to be added
 				
 			} else {
 				
-				// User chose Cancel or closed the Dialog
+				// User choose Abort -> Functionality has to be added
 				
 			}
 			
@@ -57,19 +57,19 @@ public class DialogHelper {
 	
 	public static void CustomConfirmationDialog() {
 		
-		// To do
+		// Functionality has to be added
 		
 	} // Ende der Methode CustomConfirmationDialog()
 	
 	public static void TextInputDialog() {
 		
-		// To do
+		// Functionality has to be added
 		
 	} // Ende der Methode TextInputDialog()
 	
 	public static void ChoiceDialog() {
 		
-		// To do
+		// Functionality has to be added
 		
 	} // Ende der Methode ChoiceDialog()
 	

@@ -8,17 +8,20 @@ import org.apache.logging.log4j.Logger;
 import application.Main;
 import helper.ActionButtonTableCell;
 import helper.DbHelper;
+import helper.DialogHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import model.Kinder;
 
 public class AdminController implements Initializable {
@@ -37,7 +40,7 @@ public class AdminController implements Initializable {
 		
 		logger.debug("Initializing AdminController...");
 		
-		// Observable List leeren
+		// Observeable List leeren, damit beim zurückspringen zu dieser View keine doppelten Inhalte erstellt werden
 		
 		ol.clear();
 		
@@ -45,15 +48,20 @@ public class AdminController implements Initializable {
 		
 		TableColumn<Kinder, Integer> colKindId = new TableColumn<Kinder, Integer>("ID des Kindes");
 		TableColumn<Kinder, Integer> colAlterKindes = new TableColumn<Kinder, Integer>("Alter des Kindes");
-		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Punktestand Angenehme Aktivitäten");
-		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Punktestand Unangenehme Aktivitäten");
+		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Pkt. Angenehme Aktivitäten");
+		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Pkt. Unangenehme Aktivitäten");
 		TableColumn<Kinder, Integer> colZwischenStand = new TableColumn<Kinder, Integer>("Zwischenstand");
-		TableColumn<Kinder, Integer> colStandExtras = new TableColumn<Kinder, Integer>("Punktestand Extras");
-		
+		TableColumn<Kinder, Integer> colHabenExtras = new TableColumn<Kinder, Integer>("Haben Extras");
+		TableColumn<Kinder, Integer> colAbziehenExtras = new TableColumn<Kinder, Integer>("Abziehen Extras");
+
 		// Button-Spalten
 		
 		TableColumn colEditAction = new TableColumn();
 		TableColumn colRemoveAction = new TableColumn();
+		
+		// Nested Columns erstellen
+		
+		TableColumn colExtras = new TableColumn("Extras");
 		
 		// Table Columns an Attribute (Properties) der Klasse Kinder anbinden
 		
@@ -62,12 +70,13 @@ public class AdminController implements Initializable {
 		colStandAngenehm.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandAngenehm"));
 		colStandUnangenehm.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandUnangenehm"));
 		colZwischenStand.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("ZwischenStand"));
-		colStandExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandExtras"));
+		colHabenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("HabenExtras"));
+		colAbziehenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("AbziehenExtras"));
 
 		// Button-Spalten
 		
 		colEditAction.setCellFactory(ActionButtonTableCell.<Kinder>forTableColumn("Bearbeiten", (Kinder k) -> {
-			// to do "Bearbeiten"
+			DialogHelper.Dialog(AlertType.INFORMATION, "KindID: " + k.getKindId(), "Content", k.toString(), Modality.APPLICATION_MODAL);
 			return k;
 		}));
 		
@@ -76,6 +85,10 @@ public class AdminController implements Initializable {
 			return k;
 		}));
 		
+		// Den Nested Columns zwei andere Spalten zuordnen
+		
+		colExtras.getColumns().addAll(colHabenExtras, colAbziehenExtras);
+		
 		// Table Columns in die Table View einbinden
 		
 		tvAdminView.getColumns().add(colKindId);
@@ -83,7 +96,7 @@ public class AdminController implements Initializable {
 		tvAdminView.getColumns().add(colStandAngenehm);
 		tvAdminView.getColumns().add(colStandUnangenehm);
 		tvAdminView.getColumns().add(colZwischenStand);
-		tvAdminView.getColumns().add(colStandExtras);
+		tvAdminView.getColumns().add(colExtras);
 		
 		// Button-Spalten
 		

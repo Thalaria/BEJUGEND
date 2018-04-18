@@ -21,7 +21,7 @@ public class Main extends Application {
 	
 	private final static String urlDB = "jdbc:mysql://localhost:3306/bewertungssystem";
 	private final static String dbUser = "root";
-	private final static String dbPassword = "";
+	private final static String dbPassword = "root";
 	
 	// Methoden
 	
@@ -44,7 +44,7 @@ public class Main extends Application {
 			
 			primaryStage.setTitle("BEJUGEND");
 			
-			// groessenanpassung erlauben
+			// Groessenanpassung erlauben
             
 			primaryStage.setResizable(false);
             

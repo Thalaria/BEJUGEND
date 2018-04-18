@@ -20,8 +20,6 @@ public class DbHelper {
 	
 	public static Connection connection;
 	
-	//public static KinderHelper kinderHelper;
-	
 	// Methoden
 	
 	public static void addKindToDb(Kinder k) throws SQLException {
@@ -85,6 +83,11 @@ public class DbHelper {
 				kTemp.setExtrasAktList(KinderHelper.holenExtrasAktivitaeten(kindId));
 				kTemp.setStandExtras(KinderHelper.berechneExtraPunkte(kTemp));
 				
+				kTemp.setHabenExtras(KinderHelper.holenHabenExtras(kTemp));
+				kTemp.setAbziehenExtras(KinderHelper.holenAbziehenExtras(kTemp));
+				
+				kTemp.setStandNachExtras(KinderHelper.berechneEndstandNachExtra(kTemp));
+				
 				ol.add(kTemp);
 				
 			}
@@ -98,6 +101,5 @@ public class DbHelper {
 		}
 		
 	}
-
 
 } // Ende der Klasse DbHelper

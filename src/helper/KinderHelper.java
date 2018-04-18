@@ -26,6 +26,8 @@ public class KinderHelper {
 
 	public static ArrayList<AngenehmeAktivitaeten> holenAngenehmeAktivitaeten(int kindId) throws SQLException {
 
+		logger.debug("Erstelle ArrayList<AngenehmeAktivitaeten>...");
+		
 		ArrayList<AngenehmeAktivitaeten> angenehmeAktList = new ArrayList<>();
 		
 		AngenehmeAktivitaeten angenehmeAktivitaeten;
@@ -68,6 +70,8 @@ public class KinderHelper {
 
 	public static ArrayList<UnangenehmeAktivitaeten> holenUnangenehmeAktivitaeten(int kindId) throws SQLException {
 
+		logger.debug("Erstelle ArrayList<UnangenehmeAktivitaeten>...");
+		
 		ArrayList<UnangenehmeAktivitaeten> unangenehmeAktList = new ArrayList<>();
 		
 		UnangenehmeAktivitaeten unangenehmeAktivitaeten;
@@ -108,6 +112,8 @@ public class KinderHelper {
 
 	public static ArrayList<Extras> holenExtrasAktivitaeten(int kindId) throws SQLException {
 
+		logger.debug("Erstelle ArrayList<Extras>...");
+		
 		ArrayList<Extras> extrasAktList = new ArrayList<>();
 		
 		Extras extrasAktivitaeten;
@@ -152,6 +158,8 @@ public class KinderHelper {
 
 	public static int berechnePlusPunkte(Kinder kind) {
 		
+		logger.debug("BerechnePlusPunkte...");
+		
         // Das Ergebnis definieren und initialisieren
 		int ergebnisPlus = 0;
 
@@ -178,6 +186,8 @@ public class KinderHelper {
 
 	public static int berechneMinusPunkte(Kinder kind) {
 
+		logger.debug("BerechneMinusPunkte...");
+		
 		int ergebnisMinus = 0;
 
 		ArrayList<UnangenehmeAktivitaeten> tempListUn = kind.getUnangenehmeAktList();
@@ -201,22 +211,27 @@ public class KinderHelper {
 	// Dabei wird von der Summe aller positiven Aktivitäten, die Summe aller negativer Aktivitäten
 	// abgezogen. Zu dem Ergebnis werden noch die Punkte, die ein Kind am Anfang festgezetzt bekommt
 	// hinzuaddiert.
-	// Als Übergabeparameter nimmt sie ein Kind-Objekt an und returniert das zwischen 
+	// Als Übergabeparameter nimmt sie ein Kind-Objekt an und returniert das zwischen
 	// Ergebnis als int zurück.
 	
 	public static int berechneZwischenPunkte(Kinder kind) {
 
+		logger.debug("BerechneZwischenPunkte...");
+		
 		int ergebnisZwischen = 0;
 
-		ergebnisZwischen =
-				kind.getPunktenStart() + (kind.getStandAngenehm() - kind.getStandUnangenehm());
+		ergebnisZwischen = kind.getPunktenStart() + (kind.getStandAngenehm() - kind.getStandUnangenehm());
 
 		return ergebnisZwischen;
 
 	} // Ende Methode berechneZwischenPunkte()
 	
+	// Methode berechnet die Extra-Punkte, die ein Kind durch Extra-Aktivitäten hinzugefügt bekommen hat.
+	
 	public static int berechneExtraPunkte(Kinder kind) {
 
+		logger.debug("BerechneExtraPunkte...");
+		
 		int ergebnisExtra = 0;
 
 		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
@@ -234,6 +249,74 @@ public class KinderHelper {
 		return ergebnisExtra;
 
 	} // Ende Methode berechneExtraPunkte()
-	
 
-} // Ende class  KinderHelper
+	// Methode berechnet den Punktestand nach dem die Extra-Aktivität durchgeführt wurde.
+	// Dazu wird vom Zwischenstand der für die Aktivität entsprechende Abzugs-Wert abgezogen.
+	
+	public static int berechneEndstandNachExtra(Kinder kind) {
+	
+		int ergebnisZwischenstand = 0;
+		int ergebnisEndstand = 0;
+		
+		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		
+		Extras extra = null;
+
+		for (int i = 0; i < tempListExtras.size(); i++) {
+			
+			extra = tempListExtras.get(i);
+			
+			ergebnisZwischenstand = KinderHelper.berechneZwischenPunkte(kind);
+			ergebnisEndstand = (ergebnisZwischenstand - extra.getDanachAbziehenPunkte());
+			
+		}
+		
+		return ergebnisEndstand;
+		
+	} // Ende Methode berechneEndstandNachExtra()
+	
+	// Diese Methode gibt den Wert der durch die Extra-Aktivität hinzugefügten Pukte zurück
+	
+	public static int holenHabenExtras(Kinder kind) {
+		
+		int ergebnisHabenExtras = 0;
+		
+		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		
+		Extras extra = null;
+
+		for (int i = 0; i < tempListExtras.size(); i++) {
+			
+			extra = tempListExtras.get(i);
+		
+			ergebnisHabenExtras = extra.getPunktenZahl();
+			
+		}
+		
+		return ergebnisHabenExtras;
+		
+	} // Ende Methode holenHabenExtras()
+	
+	// Diese Methode gibt den Wert aus, der nach dem Ausführen der Extra-Aktivität abgezogenen wird	
+	
+	public static int holenAbziehenExtras(Kinder kind) {
+		
+		int ergebnisAbziehenExtras = 0;
+		
+		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		
+		Extras extra = null;
+
+		for (int i = 0; i < tempListExtras.size(); i++) {
+			
+			extra = tempListExtras.get(i);
+			
+			ergebnisAbziehenExtras = extra.getDanachAbziehenPunkte();
+			
+		}
+		
+		return ergebnisAbziehenExtras;
+		
+	} // Ende Methode holenAbziehenExtras()
+	
+} // Ende class KinderHelper

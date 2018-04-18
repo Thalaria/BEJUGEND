@@ -29,7 +29,7 @@ public class Extras extends Aktivitaeten {
 		
 	}
 
-	// Getters und Setters fürs das Attribut "danachAbziehenPunkte" erzeugen
+	// Getters und Setters
 	
 	public int getDanachAbziehenPunkte() {
 		
