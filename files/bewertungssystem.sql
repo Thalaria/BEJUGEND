@@ -14,8 +14,9 @@ CREATE TABLE `aktivitaeten` (
   `NameID` int(11) NOT NULL AUTO_INCREMENT,
   `Aktivitaet` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`NameID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `aktivitaeten`;
 INSERT INTO `aktivitaeten` (`NameID`, `Aktivitaet`) VALUES
 (1,	'gut'),
 (2,	'schlecht'),
@@ -27,8 +28,9 @@ CREATE TABLE `angenehmeaktivitaeten` (
   `Name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `PlusPunktenZahl` int(11) NOT NULL,
   PRIMARY KEY (`AngenehmeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `angenehmeaktivitaeten`;
 INSERT INTO `angenehmeaktivitaeten` (`AngenehmeID`, `Name`, `PlusPunktenZahl`) VALUES
 (1,	'eine Umarmung',	15),
 (2,	'höflich sein',	5),
@@ -43,8 +45,9 @@ CREATE TABLE `extras` (
   `HabenFürPunkte` int(11) NOT NULL,
   `DanachAbziehenPunkte` int(11) NOT NULL,
   PRIMARY KEY (`ExtrasID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `extras`;
 INSERT INTO `extras` (`ExtrasID`, `Name`, `HabenFürPunkte`, `DanachAbziehenPunkte`) VALUES
 (1,	'ins Kino gehen',	30,	15),
 (2,	'5 Euro mehr Taschengeld',	15,	10),
@@ -64,6 +67,7 @@ CREATE TABLE `kindangenehmeaktivitaet` (
   CONSTRAINT `FK_KindAngenehmeAktivitaet_Kinder` FOREIGN KEY (`KindNR`) REFERENCES `kinder` (`KindID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `kindangenehmeaktivitaet`;
 INSERT INTO `kindangenehmeaktivitaet` (`EintragsDatum`, `KindNR`, `AngenehmeAktivitaetNR`) VALUES
 ('2018-01-21',	1,	1),
 ('2018-01-22',	4,	3),
@@ -77,7 +81,33 @@ INSERT INTO `kindangenehmeaktivitaet` (`EintragsDatum`, `KindNR`, `AngenehmeAkti
 ('2018-01-29',	1,	1),
 ('2018-01-29',	1,	4),
 ('2018-01-30',	1,	1),
-('2018-02-01',	1,	1);
+('2018-02-01',	1,	1),
+('2018-03-15',	2,	5),
+('2018-04-05',	5,	4),
+('2018-04-06',	4,	2),
+('2018-04-01',	3,	5),
+('2018-03-08',	5,	1),
+('2018-04-03',	2,	4),
+('2018-04-01',	2,	4),
+('2018-03-03',	5,	3),
+('2018-02-02',	5,	2),
+('2018-02-03',	5,	5),
+('2018-03-05',	5,	1),
+('2018-04-03',	2,	1),
+('2018-02-09',	2,	5),
+('2018-03-12',	3,	4),
+('2018-03-05',	5,	4),
+('2018-03-02',	5,	1),
+('2018-04-01',	5,	1),
+('2018-03-07',	2,	1),
+('2018-04-08',	5,	3),
+('2018-03-02',	4,	4),
+('2018-02-01',	6,	4),
+('2018-02-02',	6,	3),
+('2018-04-02',	4,	2),
+('2018-04-03',	3,	4),
+('2018-04-08',	5,	3),
+('2018-03-04',	6,	2);
 
 DROP TABLE IF EXISTS `kinder`;
 CREATE TABLE `kinder` (
@@ -85,8 +115,9 @@ CREATE TABLE `kinder` (
   `AlterKindes` int(11) NOT NULL,
   `PunktenStart` int(11) NOT NULL,
   PRIMARY KEY (`KindID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `kinder`;
 INSERT INTO `kinder` (`KindID`, `AlterKindes`, `PunktenStart`) VALUES
 (1,	10,	25),
 (2,	11,	20),
@@ -106,6 +137,10 @@ CREATE TABLE `kindextras` (
   CONSTRAINT `FK_KindExtras_Kinder` FOREIGN KEY (`KindNR`) REFERENCES `kinder` (`KindID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `kindextras`;
+INSERT INTO `kindextras` (`EintragsDatum`, `KindNR`, `ExtrasNR`) VALUES
+('2018-03-01',	1,	1),
+('2018-03-16',	5,	4);
 
 DROP TABLE IF EXISTS `kindunangenehmeaktivitaet`;
 CREATE TABLE `kindunangenehmeaktivitaet` (
@@ -118,6 +153,7 @@ CREATE TABLE `kindunangenehmeaktivitaet` (
   CONSTRAINT `FK_KindUnangenehmeAktivitaet_UnangenehmeAktivitaeten` FOREIGN KEY (`UnangenehmeAktivitaetNR`) REFERENCES `unangenehmeaktivitaeten` (`UnangenehmeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `kindunangenehmeaktivitaet`;
 INSERT INTO `kindunangenehmeaktivitaet` (`EintragsDatum`, `KindNR`, `UnangenehmeAktivitaetNR`) VALUES
 ('2018-01-11',	1,	1),
 ('2018-01-15',	5,	7),
@@ -134,8 +170,9 @@ CREATE TABLE `unangenehmeaktivitaeten` (
   `Name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `MinusPunktenZahl` int(11) NOT NULL,
   PRIMARY KEY (`UnangenehmeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+TRUNCATE `unangenehmeaktivitaeten`;
 INSERT INTO `unangenehmeaktivitaeten` (`UnangenehmeID`, `Name`, `MinusPunktenZahl`) VALUES
 (1,	'frech sein',	3),
 (2,	'Lügen erzählen',	3),
@@ -145,4 +182,4 @@ INSERT INTO `unangenehmeaktivitaeten` (`UnangenehmeID`, `Name`, `MinusPunktenZah
 (6,	'Geschwister ärgern',	5),
 (7,	'einen Wutanfall bekommen',	6);
 
--- 2018-04-15 19:20:35
+-- 2018-04-19 07:34:25
