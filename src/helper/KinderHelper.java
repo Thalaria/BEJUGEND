@@ -226,30 +226,19 @@ public class KinderHelper {
 
 	} // Ende Methode berechneZwischenPunkte()
 	
-	// Methode berechnet die Extra-Punkte, die ein Kind durch Extra-Aktivitäten hinzugefügt bekommen hat.
+	// Methode überprüft, ob ein Kins eine Extra-Aktivität aussuchen darf
 	
-	public static int berechneExtraPunkte(Kinder kind) {
-
-		logger.debug("BerechneExtraPunkte...");
+	public static String ueberpruefenObExtraErlaubtIst(Kinder kind) {
+		// Das zwischen Ergebnis holen
 		
-		int ergebnisExtra = 0;
-
-		ArrayList<Extras> tempListExtras = kind.getExtrasAktList();
+		int zwischenErg = KinderHelper.berechneZwischenPunkte(kind);
+		if (zwischenErg >= 100)
+			return "Ja";
+		else 
+		return "Nein";
 		
-		Extras extra = null;
-
-		for (int i = 0; i < tempListExtras.size(); i++) {
-			
-			extra = tempListExtras.get(i);
-			
-			ergebnisExtra += extra.getPunktenZahl();
-			
-		}
-
-		return ergebnisExtra;
-
-	} // Ende Methode berechneExtraPunkte()
-
+	} // Ende Mehode ueberpruefenObExtraErlaubtIst()
+	
 	// Methode berechnet den Punktestand nach dem die Extra-Aktivität durchgeführt wurde.
 	// Dazu wird vom Zwischenstand der für die Aktivität entsprechende Abzugs-Wert abgezogen.
 	
@@ -275,7 +264,7 @@ public class KinderHelper {
 		
 	} // Ende Methode berechneEndstandNachExtra()
 	
-	// Diese Methode gibt den Wert der durch die Extra-Aktivität hinzugefügten Pukte zurück
+	// Diese Methode gibt den Wert für den die Extra-Aktivität zu bekommen wäre
 	
 	public static int holenHabenExtras(Kinder kind) {
 		

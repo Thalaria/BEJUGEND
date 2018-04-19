@@ -48,11 +48,14 @@ public class AdminController implements Initializable {
 		
 		TableColumn<Kinder, Integer> colKindId = new TableColumn<Kinder, Integer>("ID des Kindes");
 		TableColumn<Kinder, Integer> colAlterKindes = new TableColumn<Kinder, Integer>("Alter des Kindes");
-		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Pkt. Angenehme Aktivitäten");
-		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Pkt. Unangenehme Aktivitäten");
+		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Pkt. angenehme Aktivitäten");
+		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Pkt. unangenehme Aktivitäten");
 		TableColumn<Kinder, Integer> colZwischenStand = new TableColumn<Kinder, Integer>("Zwischenstand");
 		TableColumn<Kinder, Integer> colHabenExtras = new TableColumn<Kinder, Integer>("Haben Extras");
 		TableColumn<Kinder, Integer> colAbziehenExtras = new TableColumn<Kinder, Integer>("Abziehen Extras");
+		TableColumn<Kinder, Integer> colStandNachExtras = new TableColumn<Kinder, Integer>("Stand nach Extras");
+		
+		
 
 		// Button-Spalten
 		
@@ -72,6 +75,7 @@ public class AdminController implements Initializable {
 		colZwischenStand.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("ZwischenStand"));
 		colHabenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("HabenExtras"));
 		colAbziehenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("AbziehenExtras"));
+		colStandNachExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandNachExtras"));
 
 		// Button-Spalten
 		
@@ -96,8 +100,9 @@ public class AdminController implements Initializable {
 		tvAdminView.getColumns().add(colStandAngenehm);
 		tvAdminView.getColumns().add(colStandUnangenehm);
 		tvAdminView.getColumns().add(colZwischenStand);
-		tvAdminView.getColumns().add(colExtras);
-		
+		tvAdminView.getColumns().add(colExtras); 
+		tvAdminView.getColumns().add(colStandNachExtras);
+		 
 		// Button-Spalten
 		
 		tvAdminView.getColumns().add(colEditAction);

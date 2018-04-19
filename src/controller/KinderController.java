@@ -51,11 +51,13 @@ public class KinderController implements Initializable {
 		
 		TableColumn<Kinder, Integer> colKindId = new TableColumn<Kinder, Integer>("ID des Kindes");
 		TableColumn<Kinder, Integer> colAlterKindes = new TableColumn<Kinder, Integer>("Alter des Kindes");
-		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Pkt. Angenehme Aktivitäten");
-		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Pkt.unktestand Unangenehme Aktivitäten");
+		TableColumn<Kinder, Integer> colStandAngenehm = new TableColumn<Kinder, Integer>("Pkt. ang. Aktivitäten");
+		TableColumn<Kinder, Integer> colStandUnangenehm = new TableColumn<Kinder, Integer>("Pkt. unang. Aktivitäten");
 		TableColumn<Kinder, Integer> colZwischenStand = new TableColumn<Kinder, Integer>("Zwischenstand");
+		TableColumn<Kinder, Integer> colExtraErlaubt = new TableColumn<Kinder, Integer>("Extra erlaubt");
 		TableColumn<Kinder, Integer> colHabenExtras = new TableColumn<Kinder, Integer>("Haben Extras");
 		TableColumn<Kinder, Integer> colAbziehenExtras = new TableColumn<Kinder, Integer>("Abziehen Extras");
+		TableColumn<Kinder, Integer> colStandNachExtras = new TableColumn<Kinder, Integer>("Stand nach Extras");
 		
 		// Nested Column erstellen
 		
@@ -68,8 +70,10 @@ public class KinderController implements Initializable {
 		colStandAngenehm.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandAngenehm"));
 		colStandUnangenehm.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandUnangenehm"));
 		colZwischenStand.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("ZwischenStand"));
+		colExtraErlaubt.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("ExtraErlaubt"));
 		colHabenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("HabenExtras"));
 		colAbziehenExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("AbziehenExtras"));
+		colStandNachExtras.setCellValueFactory(new PropertyValueFactory<Kinder, Integer>("StandNachExtras"));
 		
 		// Der Nested Column zwei andere Spalten zuordnen
 		
@@ -82,7 +86,9 @@ public class KinderController implements Initializable {
 		tvKinderView.getColumns().add(colStandAngenehm);
 		tvKinderView.getColumns().add(colStandUnangenehm);
 		tvKinderView.getColumns().add(colZwischenStand);
+		tvKinderView.getColumns().add(colExtraErlaubt);
 		tvKinderView.getColumns().add(colExtras);
+		tvKinderView.getColumns().add(colStandNachExtras);
 		
 		// Doppelklick auf eine Row abfangen und das entsprechende Objekt zurückgeben
 		

@@ -42,8 +42,13 @@ public class Kinder {
 	
 	private int zwischenStand;
 	
-	// Die Summe aller Extras aus der Liste "extrasAktList"
+	// Ein  Wert, der anzeigt ob ein Kind (falls der zwischenStand > 100 ist, schreibt "Ja", sonst "Nein")
+	// eine Extra aussuchen darf
 	
+	private String extraErlaubt;
+	
+	// Die Summe aller Extras aus der Liste "extrasAktList"
+
 	private int standExtras;
 	
 	// Dieser Wert gibt die Punktezahl an, die eine Extra-Aktivität "ergattert"
@@ -54,7 +59,7 @@ public class Kinder {
 	
 	private int abziehenExtras;
 	
-	// Dieser Wert wird gibt an, wieviel Punkte das Kind nach ausführen der Extra-Aktiviaet noch übrig hat
+	// Dieser Wert gibt an, wieviel Punkte das Kind nach ausführen der Extra-Aktiviaet noch übrig hat
 	
 	private int standNachExtras;
 	
@@ -178,6 +183,14 @@ public class Kinder {
 		
 		this.zwischenStand = zwischenStand;
 		
+	}
+	
+	public String getExtraErlaubt() {
+		return extraErlaubt;
+	}
+
+	public void setExtraErlaubt(String extraErlaubt) {
+		this.extraErlaubt = extraErlaubt;
 	}
 
 	public int getStandExtras() {

@@ -86,8 +86,10 @@ public class DbHelper {
 				
 				kTemp.setZwischenStand(KinderHelper.berechneZwischenPunkte(kTemp));
 				
+				// Den Wert ob eine Extra erlaubt ist setzen (zwischen Stand >= 100)
+			    kTemp.setExtraErlaubt(KinderHelper.ueberpruefenObExtraErlaubtIst(kTemp));
+				
 				kTemp.setExtrasAktList(KinderHelper.holenExtrasAktivitaeten(kindId));
-				kTemp.setStandExtras(KinderHelper.berechneExtraPunkte(kTemp));
 				
 				kTemp.setHabenExtras(KinderHelper.holenHabenExtras(kTemp));
 				kTemp.setAbziehenExtras(KinderHelper.holenAbziehenExtras(kTemp));
